@@ -55,11 +55,7 @@ app.use(dbConnectionMiddleware);
 app.use(
   "/api-docs",
   swaggerUi.serve,
-  swaggerUi.setup(
-    swaggerDocument,
-    { explorer: true },
-    { customCss: ".swagger-ui .topbar { display: none }" }
-  )
+  swaggerUi.setup(swaggerDocument, { explorer: true })
 );
 app.use("/auth", authenticationRouter);
 app.use("/airline", airlineRouter);
