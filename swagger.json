@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3001",
+      "url": "https://midterm-1-api.vercel.app/",
       "description": "Development Server"
     }
   ],
