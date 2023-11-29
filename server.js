@@ -6,6 +6,7 @@ const authenticationRouter = require("./routes/authentication");
 const airlineRouter = require("./routes/airlines");
 const swaggerDocument = require("./swagger.json");
 const getConnection = require("./connection/config");
+const bodyParser = require("body-parser");
 const PORT = 3001;
 
 let pool = null;
@@ -53,6 +54,7 @@ const CSS_URL =
 
 app.use(cors());
 app.use(express.static("public"));
+app.use(bodyParser.json());
 app.use(express.json());
 app.use(dbConnectionMiddleware);
 app.use(
