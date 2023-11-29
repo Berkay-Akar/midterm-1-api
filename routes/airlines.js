@@ -10,7 +10,6 @@ const sql = require("mssql");
 const { get } = require("http");
 
 /**
-/**
  * @swagger
  * /tickets:
  *   get:
@@ -18,19 +17,6 @@ const { get } = require("http");
  *     description: Endpoint to get information about all users. Requires JWT authentication.
  *     security:
  *       - bearerAuth: []
- *     parameters:
- *       - name: page
- *         in: query
- *         description: Page number (default: 1)
- *         schema:
- *           type: integer
- *           default: 1
- *       - name: pageSize
- *         in: query
- *         description: Number of items per page (default: 10)
- *         schema:
- *           type: integer
- *           default: 10
  *     responses:
  *       200:
  *         description: A list of tickets
@@ -43,7 +29,7 @@ const { get } = require("http");
  *       401:
  *         description: Unauthorized access - No token provided or token is invalid
  */
-
+//get all tickets from database with authentification
 app.get("/tickets", async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
@@ -54,14 +40,8 @@ app.get("/tickets", async (req, res) => {
     const token = authHeader.split(" ")[1];
     jwt.verify(token, secretKey); // Verify the token synchronously
 
-    const { page = 1, pageSize = 10 } = req.query;
-    const offset = (page - 1) * pageSize;
-
     const request = new sql.Request();
-    const result = await request.query(
-      `SELECT * FROM [dbo].[tickets] ORDER BY DESC OFFSET ${offset} ROWS FETCH NEXT ${pageSize} ROWS ONLY`
-    );
-
+    const result = await request.query(`SELECT * FROM [dbo].[tickets]`);
     res.send(result.recordset); // Send the result
   } catch (err) {
     // Specific error for invalid JWT
@@ -164,28 +144,15 @@ app.post("/buyTicket", async (req, res) => {
 
 /**
  * @swagger
- * /companies:
+ * /compaines:
  *   get:
- *     summary: Retrieve a list of companies
- *     description: Endpoint to get information about all companies. Requires JWT authentication.
+ *     summary: Retrieve a list of compaines
+ *     description: Endpoint to get information about all users. Requires JWT authentication.
  *     security:
  *       - bearerAuth: []
- *     parameters:
- *       - name: page
- *         in: query
- *         description: Page number (default: 1)
- *         schema:
- *           type: integer
- *           default: 1
- *       - name: pageSize
- *         in: query
- *         description: Number of items per page (default: 10)
- *         schema:
- *           type: integer
- *           default: 10
  *     responses:
  *       200:
- *         description: A list of companies
+ *         description: A list of compaines
  *         content:
  *           application/json:
  *             schema:
@@ -195,7 +162,6 @@ app.post("/buyTicket", async (req, res) => {
  *       401:
  *         description: Unauthorized access - No token provided or token is invalid
  */
-
 app.get("/companies", async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
@@ -205,14 +171,8 @@ app.get("/companies", async (req, res) => {
     const token = authHeader.split(" ")[1];
     jwt.verify(token, secretKey); // Verify the token synchronously
 
-    const { page = 1, pageSize = 10 } = req.query;
-    const offset = (page - 1) * pageSize;
-
     const request = new sql.Request();
-    const result = await request.query(
-      `SELECT * FROM [dbo].[company] ORDER BY DESC OFFSET ${offset} ROWS FETCH NEXT ${pageSize} ROWS ONLY`
-    );
-
+    const result = await request.query(`SELECT * FROM [dbo].[company]`);
     res.send(result.recordset); // Send the result
   } catch (err) {
     // Specific error for invalid JWT
