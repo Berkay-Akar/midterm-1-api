@@ -62,7 +62,7 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, {
     explorer: true,
-    customCss: CSS_URL, // Pass customCss as part of the options object
+    customCssUrl: CSS_URL, // Pass customCss as part of the options object
   })
 );
 app.use("/auth", authenticationRouter);
