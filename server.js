@@ -48,6 +48,9 @@ app.get("/", async (req, res) => {
   res.status(200).send("API Server is running!");
 });
 
+const CSS_URL =
+  "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
+
 app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
@@ -55,7 +58,7 @@ app.use(dbConnectionMiddleware);
 app.use(
   "/api-docs",
   swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument, { explorer: true })
+  swaggerUi.setup(swaggerDocument, { explorer: true }, { customCss: CSS_URL })
 );
 app.use("/auth", authenticationRouter);
 app.use("/airline", airlineRouter);
