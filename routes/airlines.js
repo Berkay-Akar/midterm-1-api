@@ -59,7 +59,7 @@ app.get("/tickets", async (req, res) => {
 
     const request = new sql.Request();
     const result = await request.query(
-      `SELECT * FROM [dbo].[tickets] ORDER BY [YourOrderByColumn] OFFSET ${offset} ROWS FETCH NEXT ${pageSize} ROWS ONLY`
+      `SELECT * FROM [dbo].[tickets] ORDER BY DESC OFFSET ${offset} ROWS FETCH NEXT ${pageSize} ROWS ONLY`
     );
 
     res.send(result.recordset); // Send the result
@@ -210,7 +210,7 @@ app.get("/companies", async (req, res) => {
 
     const request = new sql.Request();
     const result = await request.query(
-      `SELECT * FROM [dbo].[company] ORDER BY [YourOrderByColumn] OFFSET ${offset} ROWS FETCH NEXT ${pageSize} ROWS ONLY`
+      `SELECT * FROM [dbo].[company] ORDER BY DESC OFFSET ${offset} ROWS FETCH NEXT ${pageSize} ROWS ONLY`
     );
 
     res.send(result.recordset); // Send the result
